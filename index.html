@@ -210,7 +210,7 @@
   <!-- ④ DSE 選科 -->
   <section class="screen" id="screen-4">
     <h2>你 DSE 揀咗咩選修科？</h2>
-    <p class="sub" style="margin-bottom:12px">揀 2-3 科，會影響推薦邊啲專業</p>
+    <p class="sub" style="margin-bottom:12px">揀 2-4 科，會影響推薦邊啲專業</p>
     <div class="chips" id="subjectChips"></div>
     <button class="btn-primary" id="toTrackBtn2" disabled onclick="goTo(5)">下一步 ▶</button>
   </section>
@@ -297,7 +297,7 @@
     };
 
     // DSE 選修科
-    const SUBJECTS = ['物理', '化學', '生物', '經濟', '歷史', '地理', 'ICT', 'BAFS', 'M1/M2'];
+    const SUBJECTS = ['物理', '化學', '生物', '組合科學', '綜合科學', 'M1/M2', '經濟', 'BAFS', 'ICT', '設計與應用科技', '科技與生活', '歷史', '中國歷史', '地理', '倫理與宗教', '旅遊與款待', '健康管理與社會關懷', '中國文學', '英語文學', '視覺藝術', '音樂', '體育'];
 
     // 專業：uni = 大學；score = JUPAS 2024 收生分數中位數（約）；required = 需要嘅選修科
     const TRACKS = {
@@ -308,7 +308,7 @@
           { name:'心理學',     uni:'港大', score:28, career:'心理學家／研究', salary:'2.5-3.5萬', required:[] },
           { name:'翻譯',       uni:'中大', score:28, career:'翻譯員',       salary:'2-3萬',     required:[] },
           { name:'新聞傳理',   uni:'中大', score:30, career:'記者',         salary:'2-3萬',     required:[] },
-          { name:'歷史',       uni:'中大', score:25, career:'教師／研究',   salary:'3-4萬',     required:['歷史'] },
+          { name:'歷史',       uni:'中大', score:25, career:'教師／研究',   salary:'3-4萬',     required:['歷史','中國歷史'] },
           { name:'社會學',     uni:'中大', score:25, career:'研究／公務員', salary:'2.5-3.5萬', required:[] },
           { name:'教育',       uni:'港大', score:24, career:'教師',         salary:'3-4萬',     required:[] },
           { name:'社會工作',   uni:'港大', score:22, career:'社工',         salary:'2-3萬',     required:[] }
@@ -320,9 +320,9 @@
           { name:'醫科',       uni:'港大', score:45, career:'醫生',       salary:'7-10萬',    required:['化學','生物'] },
           { name:'牙醫',       uni:'港大', score:48, career:'牙醫',       salary:'7-10萬',    required:['化學','生物'] },
           { name:'藥劑',       uni:'中大', score:36, career:'藥劑師',     salary:'4-6萬',     required:['化學'] },
-          { name:'物理治療',   uni:'理大', score:32, career:'物理治療師', salary:'3.5-5萬',  required:['生物'] },
+          { name:'物理治療',   uni:'理大', score:32, career:'物理治療師', salary:'3.5-5萬',  required:['生物','體育'] },
           { name:'數學',       uni:'港大', score:30, career:'分析師／教師', salary:'3-5萬',   required:['M1/M2'] },
-          { name:'護理',       uni:'港大', score:28, career:'護士',       salary:'3-4.5萬',   required:['生物'] },
+          { name:'護理',       uni:'港大', score:28, career:'護士',       salary:'3-4.5萬',   required:['生物','健康管理與社會關懷'] },
           { name:'化學',       uni:'港大', score:28, career:'實驗室／教師', salary:'2.5-3.5萬', required:['化學'] },
           { name:'生物',       uni:'港大', score:26, career:'實驗室',     salary:'2.5-3萬',   required:['生物'] }
         ]
@@ -333,7 +333,7 @@
           { name:'人工智能',   uni:'港大', score:36, career:'AI 工程師',   salary:'3-5萬',    required:['物理','M1/M2'] },
           { name:'計算機',     uni:'科大', score:35, career:'軟件工程師', salary:'2.5-4萬',  required:['ICT','物理'] },
           { name:'數據科學',   uni:'科大', score:34, career:'數據分析師', salary:'2.5-4萬',  required:['M1/M2'] },
-          { name:'建築',       uni:'港大', score:30, career:'建築師',     salary:'3-5萬',    required:['物理'] },
+          { name:'建築',       uni:'港大', score:30, career:'建築師',     salary:'3-5萬',    required:['物理','視覺藝術'] },
           { name:'土木工程',   uni:'港大', score:28, career:'工程師',     salary:'2.5-3.5萬', required:['物理'] },
           { name:'生物醫學工程', uni:'理大', score:27, career:'工程師',   salary:'2.5-3.5萬', required:['物理','生物'] },
           { name:'機械工程',   uni:'理大', score:26, career:'工程師',     salary:'2-3萬',    required:['物理'] },
@@ -349,7 +349,7 @@
           { name:'經濟',     uni:'中大', score:33, career:'經濟分析師', salary:'3-5萬',   required:['經濟'] },
           { name:'會計',     uni:'港大', score:33, career:'會計師',   salary:'2.5-3.5萬', required:['BAFS'] },
           { name:'市場營銷', uni:'城大', score:27, career:'營銷',     salary:'2-3萬',     required:[] },
-          { name:'酒店管理', uni:'理大', score:26, career:'酒店業',   salary:'2-3萬',     required:[] },
+          { name:'酒店管理', uni:'理大', score:26, career:'酒店業',   salary:'2-3萬',     required:['旅遊與款待'] },
           { name:'管理',     uni:'城大', score:25, career:'行政／管理', salary:'2-3萬',   required:[] }
         ]
       }
@@ -636,7 +636,7 @@
           if (i >= 0) {
             state.subjects.splice(i, 1);
             chip.classList.remove('selected');
-          } else if (state.subjects.length < 3) {
+          } else if (state.subjects.length < 4) {
             state.subjects.push(s);
             chip.classList.add('selected');
           }
